@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "781130817009",
+    "firebase_url": "https://trackit-c8974.firebaseio.com",
+    "project_id": "trackit-c8974",
+    "storage_bucket": "trackit-c8974.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781130817009:android:048debf9dbdaaf32337850",
+        "android_client_info": {
+          "package_name": "com.dev.trackit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781130817009-bgj26al4kor9ra261s0sgnq6t2g5jpt0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAESRd76YpI5_rjrdtzkpEe5lObb1sThEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781130817009-bgj26al4kor9ra261s0sgnq6t2g5jpt0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
