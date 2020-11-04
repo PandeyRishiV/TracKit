@@ -1,6 +1,6 @@
-# trackit
+# TracKit
 
-A new Flutter project.
+An Application to track your belongings
 
 ## Getting Started
 
