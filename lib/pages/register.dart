@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trackit/services/auth.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -7,6 +8,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   //Variables
+  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
@@ -15,7 +17,15 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(primaryColor: Colors.white),
+        theme: ThemeData(
+            brightness: Brightness.dark,
+            primaryColor: Colors.blue,
+            buttonTheme: ButtonThemeData(
+              buttonColor: Colors.blue[600],
+              textTheme: ButtonTextTheme.accent,
+            ),
+            accentColor: Colors.white,
+            errorColor: Colors.red),
         home: Scaffold(
           body: Form(
             key: _formKey,
@@ -28,7 +38,7 @@ class _RegisterState extends State<Register> {
                   child: Text(
                     "Welcome,\nRegister To Continue",
                     style: TextStyle(
-                      color: Colors.blue[900],
+                      color: Theme.of(context).primaryColor,
                       fontSize: 30,
                     ),
                   ),
@@ -74,16 +84,19 @@ class _RegisterState extends State<Register> {
                   child: RaisedButton(
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        if (false) {
+                        dynamic result = await _auth.registerEmailAndPassword(
+                            email, password);
+                        if (result == null) {
                           error = "Something went wrong, please try again";
+                        } else {
+                          Navigator.pop(context);
+                          Navigator.pushNamed(context, "/login");
                         }
                       }
                     },
                     child: Text(
                       "Register",
-                      style: TextStyle(color: Colors.white),
                     ),
-                    color: Colors.blue[900],
                   ),
                 ),
                 SizedBox(
@@ -91,7 +104,8 @@ class _RegisterState extends State<Register> {
                 ),
                 Text(
                   error,
-                  style: TextStyle(color: Colors.red, fontSize: 16),
+                  style: TextStyle(
+                      color: Theme.of(context).errorColor, fontSize: 16),
                 ),
                 SizedBox(
                   height: 50,
@@ -103,7 +117,7 @@ class _RegisterState extends State<Register> {
                   },
                   child: Text("Already a User? Login here",
                       style: TextStyle(
-                          color: Colors.blue[700],
+                          color: Colors.blue[300],
                           decoration: TextDecoration.underline)),
                 ),
               ],

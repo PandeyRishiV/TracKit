@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:trackit/services/auth.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -8,6 +9,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   //Variables
+
+  final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
@@ -16,7 +19,15 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(primaryColor: Colors.white),
+        theme: ThemeData(
+            brightness: Brightness.dark,
+            primaryColor: Colors.blue,
+            buttonTheme: ButtonThemeData(
+              buttonColor: Colors.blue[600],
+              textTheme: ButtonTextTheme.accent,
+            ),
+            accentColor: Colors.white,
+            errorColor: Colors.red),
         home: Scaffold(
           body: Form(
             key: _formKey,
@@ -29,7 +40,7 @@ class _LoginState extends State<Login> {
                   child: Text(
                     "Welcome,\nLogin To Continue",
                     style: TextStyle(
-                      color: Colors.blue[900],
+                      color: Theme.of(context).primaryColor,
                       fontSize: 30,
                     ),
                   ),
@@ -39,15 +50,16 @@ class _LoginState extends State<Login> {
                 Container(
                   padding: EdgeInsets.fromLTRB(50, 0, 50, 20),
                   child: TextFormField(
-                    validator: (val) => val.isEmpty ? 'Enter Email Id' : null,
-                    onChanged: (val) {
-                      setState(() {
-                        email = val;
-                      });
-                    },
-                    decoration: InputDecoration(
-                        icon: Icon(Icons.mail_outline), labelText: "Email ID"),
-                  ),
+                      validator: (val) => val.isEmpty ? 'Enter Email Id' : null,
+                      onChanged: (val) {
+                        setState(() {
+                          email = val;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.mail_outline),
+                        labelText: "Email ID",
+                      )),
                 ),
 
                 //PASSWORD TEXT FIELD
@@ -73,17 +85,18 @@ class _LoginState extends State<Login> {
                   child: RaisedButton(
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        if (true) {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/home');
+                        dynamic result = _authService.signInEmailAndPassword(
+                            email, password);
+                        if (result == null) {
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                                  "Something went wrong, please try again")));
                         }
                       }
                     },
                     child: Text(
                       "Login",
-                      style: TextStyle(color: Colors.white),
                     ),
-                    color: Colors.blue[900],
                   ),
                 ),
                 SizedBox(
@@ -91,7 +104,8 @@ class _LoginState extends State<Login> {
                 ),
                 Text(
                   error,
-                  style: TextStyle(color: Colors.red, fontSize: 16),
+                  style: TextStyle(
+                      color: Theme.of(context).errorColor, fontSize: 16),
                 ),
                 SizedBox(
                   height: 50,
@@ -104,7 +118,7 @@ class _LoginState extends State<Login> {
                   child: Text(
                     "Not a User? Register here",
                     style: TextStyle(
-                        color: Colors.blue[700],
+                        color: Colors.blue[300],
                         decoration: TextDecoration.underline),
                   ),
                 ),

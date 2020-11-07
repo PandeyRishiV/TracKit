@@ -7,14 +7,11 @@ class Splash extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 5000), () {
       Navigator.pop(context);
-      if (false) {
-        Navigator.pushNamed(context, '/home');
-      } else {
-        Navigator.pushNamed(context, "/login");
-      }
+      Navigator.pushNamed(context, '/wrapper');
     });
     return MaterialApp(
-      theme: ThemeData(backgroundColor: Colors.blue[900]),
+      //Setup theme ------------------------------------
+      //theme: ThemeData(backgroundColor: Colors.blue[900]),
       home: Scaffold(
         body: Center(
           child: Column(
