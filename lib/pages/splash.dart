@@ -5,18 +5,19 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //Delay for splash
     Future.delayed(const Duration(milliseconds: 5000), () {
+      //Move to wrapper class
       Navigator.pop(context);
       Navigator.pushNamed(context, '/wrapper');
     });
     return MaterialApp(
-      //Setup theme ------------------------------------
-      //theme: ThemeData(backgroundColor: Colors.blue[900]),
       home: Scaffold(
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              //Logo head
               Container(
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
                 child: Text(
@@ -27,6 +28,7 @@ class Splash extends StatelessWidget {
                       color: Colors.white),
                 ),
               ),
+              //Progress Bar
               Container(
                   child: SpinKitFoldingCube(
                 color: Colors.white,

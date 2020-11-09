@@ -24,7 +24,10 @@ class _HomeState extends State<Home> {
                   print("Error Occured");
                 }
               },
-              icon: Icon(Icons.supervised_user_circle),
+              icon: Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
               label: Text(
                 "Sign Out",
                 style: TextStyle(color: Colors.white),

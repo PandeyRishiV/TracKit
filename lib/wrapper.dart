@@ -12,6 +12,7 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
+    //Check if user logged in
     final user = Provider.of<Users>(context);
     if (user != null) {
       return Home();

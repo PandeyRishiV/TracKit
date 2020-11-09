@@ -10,6 +10,7 @@ class _RegisterState extends State<Register> {
   //Variables
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  final scaffoldStateKey = GlobalKey<ScaffoldState>();
   String email = '';
   String password = '';
   String error = '';
@@ -27,6 +28,7 @@ class _RegisterState extends State<Register> {
             accentColor: Colors.white,
             errorColor: Colors.red),
         home: Scaffold(
+          key: scaffoldStateKey,
           body: Form(
             key: _formKey,
             child: Column(
@@ -87,7 +89,13 @@ class _RegisterState extends State<Register> {
                         dynamic result = await _auth.registerEmailAndPassword(
                             email, password);
                         if (result == null) {
-                          error = "Something went wrong, please try again";
+                          scaffoldStateKey.currentState.showSnackBar(SnackBar(
+                            content: Text(
+                              "Something went wrong, Please try again",
+                              style: TextStyle(color: Colors.blueGrey[900]),
+                            ),
+                            backgroundColor: Colors.blue[600],
+                          ));
                         } else {
                           Navigator.pop(context);
                           Navigator.pushNamed(context, "/login");

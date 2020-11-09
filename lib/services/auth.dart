@@ -6,7 +6,7 @@ class AuthService {
 
   //create Users object
   Users _usersFirebase(FirebaseUser user) {
-    return user != null ? Users(uid: user.uid) : null;
+    return user != null ? Users(uid: user.uid, email: user.email) : null;
   }
 
   //Auth Change user stream
@@ -38,6 +38,17 @@ class AuthService {
       print(
           "SIGN IN EMAIL AND PASSWORD ERROR ----------------->" + e.toString());
       return null;
+    }
+  }
+
+  //Reset Password
+  Future resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
     }
   }
 

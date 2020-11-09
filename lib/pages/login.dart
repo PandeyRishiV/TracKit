@@ -9,9 +9,9 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   //Variables
-
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
+  final scaffoldStateKey = GlobalKey<ScaffoldState>();
   String email = '';
   String password = '';
   String error = '';
@@ -19,16 +19,27 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        //Standard Theme for the page
         theme: ThemeData(
+            //Theme type
             brightness: Brightness.dark,
+            //Main Color
             primaryColor: Colors.blue,
+            //Second color
+            accentColor: Colors.white,
+            //Button Theme
             buttonTheme: ButtonThemeData(
               buttonColor: Colors.blue[600],
               textTheme: ButtonTextTheme.accent,
             ),
-            accentColor: Colors.white,
+            //Snackbar Theme
+            snackBarTheme: SnackBarThemeData(
+                backgroundColor: Colors.blue[600],
+                contentTextStyle: TextStyle(color: Colors.black)),
+            //Error
             errorColor: Colors.red),
         home: Scaffold(
+          key: scaffoldStateKey,
           body: Form(
             key: _formKey,
             child: Column(
@@ -85,12 +96,14 @@ class _LoginState extends State<Login> {
                   child: RaisedButton(
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        dynamic result = _authService.signInEmailAndPassword(
-                            email, password);
+                        dynamic result = await _authService
+                            .signInEmailAndPassword(email, password);
                         if (result == null) {
-                          Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text(
-                                  "Something went wrong, please try again")));
+                          scaffoldStateKey.currentState.showSnackBar(SnackBar(
+                            content: Text(
+                              "Something went wrong, please try again",
+                            ),
+                          ));
                         }
                       }
                     },
@@ -99,17 +112,68 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
+                //Space
                 SizedBox(
-                  height: 20,
+                  height: 70,
                 ),
-                Text(
-                  error,
-                  style: TextStyle(
-                      color: Theme.of(context).errorColor, fontSize: 16),
+                //FORGOT PASSWORD
+                FlatButton(
+                  onPressed: () {
+                    if (email.isNotEmpty) {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Reset Password Request"),
+                              content: Text(
+                                  "This will send you a mail with a link using which you can reset your password"),
+                              actions: [
+                                FlatButton(
+                                    onPressed: () async {
+                                      //SETUP FIREBASE RESET PASSWORD
+                                      dynamic result = await _authService
+                                          .resetPassword(email);
+                                      Navigator.pop(context);
+                                      FocusScope.of(context).unfocus();
+                                      if (result == false) {
+                                        scaffoldStateKey.currentState
+                                            .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Something went wrong, please try again")));
+                                      } else {
+                                        scaffoldStateKey.currentState
+                                            .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Password reset mail sent")));
+                                      }
+                                    },
+                                    child: Text("Ok")),
+                                FlatButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("Cancel"),
+                                )
+                              ],
+                            );
+                          });
+                    } else {
+                      scaffoldStateKey.currentState.showSnackBar(SnackBar(
+                          content: Text("To reset password enter email id")));
+                    }
+                  },
+                  child: Text(
+                    "Forgot Password",
+                    style: TextStyle(
+                        color: Colors.blue[300],
+                        decoration: TextDecoration.underline),
+                  ),
                 ),
+                //Space
                 SizedBox(
-                  height: 50,
+                  height: 10,
                 ),
+                //Register page
                 FlatButton(
                   onPressed: () {
                     Navigator.pop(context);
