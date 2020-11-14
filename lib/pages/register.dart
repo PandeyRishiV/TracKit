@@ -14,6 +14,7 @@ class _RegisterState extends State<Register> {
   String email = '';
   String password = '';
   String error = '';
+  bool confirm = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +78,19 @@ class _RegisterState extends State<Register> {
                     decoration: InputDecoration(
                       icon: Icon(Icons.border_color),
                       labelText: "Password",
+                    ),
+                  ),
+                ),
+
+                //CONFIRM PASSWORD TEXT FIELD
+                Container(
+                  padding: EdgeInsets.fromLTRB(90, 0, 50, 40),
+                  child: TextFormField(
+                    validator: (val) =>
+                        val != password ? 'Password does not match' : null,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: "Confirm Password",
                     ),
                   ),
                 ),
