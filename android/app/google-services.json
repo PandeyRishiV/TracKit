@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "142167019350",
+    "firebase_url": "https://trackit-3409f-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "trackit-3409f",
+    "storage_bucket": "trackit-3409f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142167019350:android:f4e82a0804b2d6d28b90f7",
+        "android_client_info": {
+          "package_name": "com.dev.trackit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142167019350-uhov8es5m80flrfh0749srnpp7c1jj07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjZuMGPmoD3-YrCW0NMxfhaHpBFELSY2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "142167019350-uhov8es5m80flrfh0749srnpp7c1jj07.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "142167019350-80q67kl1jn7m1e6hba5l0jqe3tf68lrn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dev.trackit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
